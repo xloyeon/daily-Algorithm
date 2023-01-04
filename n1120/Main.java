@@ -7,18 +7,18 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         String A = sc.next();
         String B = sc.next();
-        
+
         int result = A.length();
-        
-        for(int i = 0; i<B.length()-A.length()+1; i++){
+
+        for (int i = 0; i < B.length() - A.length() + 1; i++) {
             int count = 0;
-            
-            for(int j = 0; j<A.length();j++){
-                if(A.charAt(j) != B.charAt(i+j))
+
+            for (int j = 0; j < A.length(); j++) {
+                if (A.charAt(j) != B.charAt(i + j))
                     count++;
             }
-            
-            if(result > count)
+
+            if (result > count)
                 result = count;
         }
         System.out.println(result);
