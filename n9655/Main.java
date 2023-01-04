@@ -1,3 +1,5 @@
+package n9655;
+
 import java.io.*;
 
 public class Main{

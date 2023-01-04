@@ -1,7 +1,9 @@
+package n11170;
+
 import java.util.*;
 import java.io.*;
 
-public class Main{
+public class Main {
 	
 	public static int countZero(int n, int m){
         int count = 0;

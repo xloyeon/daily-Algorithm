@@ -1,7 +1,9 @@
+package n10815;
+
 import java.io.*;
 import java.util.*;
 
-public class Main{
+public class Main {
 	public static int binarySearch(int[] arr, int n, int num) {
 		int start = 0;
 		int end = n-1;

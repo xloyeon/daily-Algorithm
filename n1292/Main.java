@@ -1,3 +1,5 @@
+package n1292;
+
 import java.io.*;
 import java.util.*;
 

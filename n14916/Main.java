@@ -1,7 +1,8 @@
-import java.io.*;
-import java.util.*;
+package n14916;
 
-public class Main{
+import java.io.*;
+
+public class Main {
 	
 	public static void main(String[] args) throws Exception{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

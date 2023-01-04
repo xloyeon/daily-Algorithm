@@ -1,3 +1,5 @@
+package n1475;
+
 import java.io.*;
 
 public class Main{
