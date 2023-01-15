@@ -1,7 +1,5 @@
-package n16198;
+package BruteForce_recursion.n16198;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {

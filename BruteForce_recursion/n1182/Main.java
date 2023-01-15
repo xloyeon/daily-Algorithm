@@ -1,4 +1,4 @@
-package n1182;
+package BruteForce_recursion.n1182;
 
 import java.util.ArrayList;
 import java.util.List;
