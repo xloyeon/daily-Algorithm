@@ -1,6 +1,5 @@
-package n16928;
+package BFS.n16928;
 
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

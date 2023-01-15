@@ -1,4 +1,4 @@
-package n14226;
+package BFS.n14226;
 
 import java.io.IOException;
 import java.util.LinkedList;

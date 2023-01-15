@@ -1,6 +1,5 @@
-package n13549;
+package BFS.n13549;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;

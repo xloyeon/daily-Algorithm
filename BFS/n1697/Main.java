@@ -1,4 +1,4 @@
-package n1697;
+package BFS.n1697;
 
 import java.util.*;
 
