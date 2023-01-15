@@ -1,4 +1,4 @@
-package n14888;
+package BruteForce_permutation.n14888;
 
 import java.util.ArrayList;
 import java.util.Collections;
