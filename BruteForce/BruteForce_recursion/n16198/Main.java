@@ -1,4 +1,4 @@
-package BruteForce_recursion.n16198;
+package BruteForce.BruteForce_recursion.n16198;
 
 import java.util.Scanner;
 

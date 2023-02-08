@@ -1,4 +1,4 @@
-package BruteForce_permutation.n2529;
+package BruteForce.BruteForce_permutation.n2529;
 
 import java.util.Scanner;
 
