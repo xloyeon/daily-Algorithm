@@ -1,4 +1,4 @@
-package BruteForce.BruteForce_permutation.n1339;
+package Greedy.n1339;
 
 import java.util.*;
 
