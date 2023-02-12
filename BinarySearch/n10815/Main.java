@@ -1,4 +1,4 @@
-package n10815;
+package BinarySearch.n10815;
 
 import java.io.*;
 import java.util.*;
