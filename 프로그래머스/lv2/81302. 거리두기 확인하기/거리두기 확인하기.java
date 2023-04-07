@@ -1,57 +1,61 @@
 import java.util.*;
+
 class Solution {
-
-    int getDistance(Pair p1, Pair p2) {
-        return Math.abs(p1.row - p2.row) + Math.abs(p1.col - p2.col);        
-    }
-
-    int solve(char[][] board, ArrayList<Pair> people) {
-        for(int i = 0 ; i < people.size();i++) {
-            Pair p1 = people.get(i);
-            for(int j = i + 1; j < people.size(); j++) {                
-                Pair p2 = people.get(j);
-                int distance = getDistance(p1, p2);
-                if(distance < 2) return 0;
-                if(distance == 2) {
-                    if(p1.row == p2.row) {
-                        if(board[p1.row][(p1.col + p2.col) / 2] == 'O') return 0;
-                    }
-                    else if(p1.col == p2.col) {
-                        if(board[(p1.row + p2.row)/2][p1.col] == 'O') return 0;
-                    }
-                    else if(Math.abs(p1.row - p2.row) == 1 && Math.abs(p1.col - p2.col) == 1) {
-                        if(board[p1.row][p2.col] != 'X' || board[p2.row][p1.col] != 'X') return 0;
-                    }                    
+    public int[] moveX = {0, 0, 1, 1, 2, 1, 0, 0};
+    public int[] moveY = {-2, -1, -1, 0, 0, 1, 1, 2};
+    public String[][] rooms;
+    
+    public int checkDistance(){
+        for(int i = 0; i<5; i++){
+            for(int j = 0; j<5; j++){
+                if(rooms[i][j].equals("P") && !keepDistance(i, j)){
+                    return 0;
                 }
             }
         }
         return 1;
     }
-
-    public int[] solution(String[][] places) {
-        int[] answer = {};
-        answer = new int[places.length];
-
-        for(int i = 0 ; i < places.length; i++) {
-            char[][] board = new char[5][5];
-            ArrayList<Pair> people = new ArrayList();
-            for(int r = 0; r < 5; r++) {
-                for(int c = 0; c < 5; c++) {
-                    board[r][c] = places[i][r].charAt(c);
-                    if(board[r][c] == 'P') {
-                        people.add(new Pair(r,c));
-                    }
+    
+    public boolean keepDistance(int i, int j){
+        for(int k = 0; k<moveX.length; k++){
+            int x = i + moveX[k];
+            int y = j + moveY[k];
+            
+            if(x>=0 && x<5 && y>=0 && y<5 && rooms[x][y].equals("P")){
+                if(i == x && Math.abs(y-j)==1){
+                    return false;
+                }else if(j==y && Math.abs(x-i)==1){
+                    return false;
+                }else if(i==x){
+                    if(!rooms[x][(y+j)/2].equals("X"))
+                        return false;
+                }else if(j==y) {
+                    if(!rooms[(x+i)/2][y].equals("X"))
+                        return false;
+                }else if(!rooms[x][j].equals("X") || !rooms[i][y].equals("X")){
+                    return false;
                 }
             }
-            answer[i] = solve(board, people);
-        }        
-        return answer;
-    }
-    class Pair {
-        int row, col;
-        Pair(int r, int c) {
-            this.row = r;
-            this.col = c;
         }
+        return true;
     }
+
+    public int[] solution(String[][] places) {
+        int idx = 0;
+        int[] result = new int[places.length];
+
+        for(String[] place : places) {
+            rooms = new String[5][5];
+            
+            for(int i = 0; i<5; i++){
+                for(int j = 0; j<5; j++){
+                    rooms[i][j] = String.valueOf(place[i].charAt(j));
+                }
+            }
+            
+            result[idx++] = checkDistance();
+        }        
+        return result;
+    }
+    
 }
