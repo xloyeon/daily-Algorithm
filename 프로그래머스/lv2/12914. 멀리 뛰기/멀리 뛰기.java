@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
     
     public long solution(int n) {
-        long[] result = new long[n];
+        int[] result = new int[n];
         
         for(int i = 0; i<n; i++){
             if(i==0) result[i] = 1;
