@@ -20,8 +20,6 @@ class Solution {
         
         int count = 0;
         
-        Collections.sort(list);
-        
         for(String l : list){
             count++;
             if(l.equals(word))
