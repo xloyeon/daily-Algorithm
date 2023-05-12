@@ -7,14 +7,11 @@ class Solution {
         //3061
         //3062
         String[] nums = new String[numbers.length];
-        boolean isZero = true;
         
         for(int i = 0; i<numbers.length; i++){
             nums[i] = String.valueOf(numbers[i]);
-            if(numbers[i] != 0) isZero = false;
         }
         
-        if(isZero) return "0";
         
         Arrays.sort(nums, new Comparator<String>(){
             
@@ -35,6 +32,8 @@ class Solution {
             result += nums[i];
         }
         
+        
+        if(result.charAt(0) == '0') return "0";
         return result;
     }
 }
