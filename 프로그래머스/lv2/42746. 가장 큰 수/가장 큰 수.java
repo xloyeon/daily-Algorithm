@@ -16,12 +16,8 @@ class Solution {
         Arrays.sort(nums, new Comparator<String>(){
             
             public int compare(String o1, String o2){
-                if(o1.charAt(0) == o2.charAt(0)){
-                    if(o1.length() == o2.length()){
-                        return o1.compareTo(o2);
-                    }
+                if(o1.charAt(0) == o2.charAt(0) && o1.length() != o2.length())
                     return (o1+o2).compareTo(o2+o1);
-                }
                 return o1.compareTo(o2);
             }
         });
