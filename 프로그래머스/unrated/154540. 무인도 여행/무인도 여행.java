@@ -21,11 +21,10 @@ class Solution {
                 int movedY = temp[1] + moveY[i];
                 
                 if(movedX>=0 && movedX<map[0].length && movedY>=0 && movedY<map.length){
+                    //섬이고 방문하지 않은 경우만 add
                     if(!map[movedY][movedX].equals("X") && visited[movedY][movedX] == 0){
                         visited[movedY][movedX] = 1;
-                        System.out.println(map[movedY][movedX]);
                         count+= Integer.valueOf(map[movedY][movedX]);
-                        System.out.println(count);
                         q.add(new int[]{movedX, movedY});
                     }
                 }
@@ -48,20 +47,24 @@ class Solution {
         
         for(int i = 0; i<map.length; i++){
             for(int j = 0; j<map[0].length; j++){
+                //섬이고 방문하지 않은 경우만 시작
                 if(!map[i][j].equals("X") && visited[i][j] == 0) {
                     resultList.add(bfs(j, i));
                 }
             }
         }
         
+        //리스트 크기가 0이면 지낼 수 없는 무인도 없음
         if(resultList.size() == 0) resultList.add(-1);
         
+        //리스트 배열로 만들기
         int[] result = new int[resultList.size()];
         
         for(int i = 0; i<resultList.size(); i++){
             result[i] = resultList.get(i);
         }
         
+        //배열 오름차순 정렬
         Arrays.sort(result);
         return result;
         
