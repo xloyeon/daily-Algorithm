@@ -1,0 +1,8 @@
+-- FIRST_HALF : SHIPMENT_ID, FLAVOR, TOTAL_ORDER
+-- 맛만 select
+-- 총 주문량 기준 내림차순 정렬
+-- 같으면 출하 번호 기준 오름차순 정렬
+
+SELECT FLAVOR
+FROM FIRST_HALF
+ORDER BY TOTAL_ORDER DESC, SHIPMENT_ID;
