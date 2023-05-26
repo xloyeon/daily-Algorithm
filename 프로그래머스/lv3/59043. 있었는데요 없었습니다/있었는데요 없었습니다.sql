@@ -4,5 +4,5 @@
 
 SELECT a.animal_id, a.name
 from animal_ins a join animal_outs b on a.animal_id = b.animal_id
-where to_number(to_char(a.datetime, 'yyyymmddhh24miss')) >to_number(to_char(b.datetime, 'yyyymmddhh24miss'))
+where a.datetime >b.datetime
 order by a.datetime;
