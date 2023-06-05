@@ -5,6 +5,7 @@ class Solution {
     
     public void checkMin(int i){
         for(Integer key : keyList){
+            //이미 후보키인 키와 부분집합인 집합이 있으면 최소성 위반
             if((key & i) == key) return;
         }
         keyList.add(i);
@@ -15,7 +16,7 @@ class Solution {
         keyList = new ArrayList<>();
         int m = relation[0].length; //컬럼개수
         
-        for(int i = 0; i<(1<<m); i++){
+        for(int i = 0; i<(1<<m); i++){  //모든 컬럼의 부분집합 탐색
             Set<String> unique = new HashSet<>();
             
             for(int j = 0; j<relation.length; j++){
@@ -28,7 +29,9 @@ class Solution {
                 unique.add(sb.toString());
             }
             
+            //개수 같지 않으면 중복 있으므로 유일성 위반
             if(unique.size()!= relation.length) continue;
+            //최소성 확인
             checkMin(i);
         }
         return keyList.size();
