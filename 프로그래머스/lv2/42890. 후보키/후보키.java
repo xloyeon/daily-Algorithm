@@ -1,39 +1,73 @@
 import java.util.*;
 
 class Solution {
-    public List<Integer> keyList;
+    public String[][] relation;
+    public Set<String> set = new HashSet<>();
     
-    public void checkMin(int i){
-        for(Integer key : keyList){
-            //이미 후보키인 키와 부분집합인 집합이 있으면 최소성 위반
-            if((key & i) == key) return;
+    public void dfs(int k, int max, StringBuilder sb){
+        if(sb.length() == max){
+            if(checkMinimal(sb)){
+                System.out.println(sb.toString() +"이 최소성 검사 통과");
+                if(checkUnique(sb)){
+                    set.add(sb.toString());
+                    System.out.println(sb.toString() +"이 유일성 검사 통과");
+                }
+            }
+            return;
         }
-        keyList.add(i);
+        
+        if(k>=relation[0].length) return;
+        
+        sb.append(k);
+        dfs(k+1, max, sb);
+        
+        sb.deleteCharAt(sb.length()-1);
+        dfs(k+1, max, sb);
+    }
+    
+    public boolean checkUnique(StringBuilder sb){
+        List<String> uniqueList = new ArrayList<>();
+        for(int i = 0; i<relation.length; i++){
+            String temp = "";
+            
+            for(int j = 0; j<sb.length(); j++){
+                int idx = Integer.valueOf(sb.substring(j, j+1));
+                temp += relation[i][idx];
+            }
+            
+            if(uniqueList.contains(temp)) return false;
+            uniqueList.add(temp);
+        }
+        return true;
+    }
+    
+    public boolean checkMinimal(StringBuilder sb){
+        String target = sb.toString();
+        
+        for(String s : set){
+            boolean flag = true;
+            
+            for(int i = 0; i<s.length(); i++){
+                if(!target.contains(String.valueOf(s.charAt(i)))){
+                    flag = false;
+                    break;
+                }
+            }
+            
+            if(flag)
+                return false;
+        }
+        return true;
     }
     
     public int solution(String[][] relation) {
-        //조합의 길이 -> relation[0].length
-        keyList = new ArrayList<>();
-        int m = relation[0].length; //컬럼개수
+        this.relation = relation;
         
-        for(int i = 0; i<(1<<m); i++){  //모든 컬럼의 부분집합 탐색
-            Set<String> unique = new HashSet<>();
-            
-            for(int j = 0; j<relation.length; j++){
-                StringBuilder sb = new StringBuilder();
-                
-                for(int k = 0; k<m; k++){
-                    if((i & (1<<k)) >0)
-                        sb.append(relation[j][k]);
-                }
-                unique.add(sb.toString());
-            }
-            
-            //개수 같지 않으면 중복 있으므로 유일성 위반
-            if(unique.size()!= relation.length) continue;
-            //최소성 확인
-            checkMin(i);
+        for(int i = 1; i<=relation[0].length; i++){
+            StringBuilder sb = new StringBuilder();
+            System.out.println(i + "개 뽑아서 확인");
+            dfs(0, i, sb);
         }
-        return keyList.size();
+        return set.size();
     }
 }
