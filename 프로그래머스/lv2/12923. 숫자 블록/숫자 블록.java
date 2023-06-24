@@ -17,7 +17,7 @@ class Solution {
             
             int last = (int)Math.sqrt(i);
             
-            for(int j = 2; j<=Math.sqrt(i); j++){
+            for(int j = 2; j<=last; j++){
                 
                 if(i%j == 0){
                     int temp = (int)(i/j);
