@@ -23,6 +23,10 @@ class Mission implements Comparable<Mission> {
         return this.time;
     }
     
+    public void setTime(int time){
+        this.time = time;
+    }
+    
     public int compareTo(Mission m){
         return this.start - m.getStart();
     }
@@ -59,7 +63,8 @@ class Solution {
             
             //이전 시작 과제를 다음 시작 과제 전에 끝낼 수 없다면
             if(before.getTime()> gap){
-                stack.push(new Mission(before.getName(), before.getStart(), before.getTime()-gap));   //잠시 멈춤
+                before.setTime(before.getTime()-gap);
+                stack.push(before);   //잠시 멈춤
             }
             
             //끝낼 수 있다면
@@ -72,7 +77,8 @@ class Solution {
                     Mission temp = stack.pop();
                     
                     if(temp.getTime()>gap){
-                        stack.push(new Mission(temp.getName(), temp.getStart(), temp.getTime()-gap));
+                        temp.setTime(temp.getTime()-gap);
+                        stack.push(temp);
                         break;
                     }else {
                         result[idx++] = temp.getName();
