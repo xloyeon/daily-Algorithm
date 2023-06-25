@@ -26,7 +26,7 @@ class Solution {
                         result[idx] = temp;
                         break;
                     }else{
-                        result[idx] = Math.max(result[idx], j);
+                        result[idx] = j;
                     }
                 }
             }
