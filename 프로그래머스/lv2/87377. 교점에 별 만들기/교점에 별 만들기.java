@@ -12,10 +12,10 @@ class Point{
 
 class Solution {
     public String[] solution(int[][] line) {
-        Set<Point> set = new HashSet<>();   //교점들의 집합
+        Set<Point> set = new HashSet<>();
         long minX = Long.MAX_VALUE;
-        long minY = Long.MAX_VALUE;
         long maxX = Long.MIN_VALUE;
+        long minY = Long.MAX_VALUE;
         long maxY = Long.MIN_VALUE;
         
         for(int i = 0; i<line.length; i++){
@@ -28,46 +28,45 @@ class Solution {
                 long d = line[j][1];
                 long f = line[j][2];
                 
-                long target = a*d -b*c;
+                long parallel = a*d - b*c;
                 
-                //평행 또는 일치 -> 일치 없으므로 평행
-                if(target == 0) continue;
+                if(parallel == 0) continue;
                 
-                //교점의 x가 정수가 아닐 때 -> 불가능
-                if((b*f-e*d)%target!=0) continue;
+                if((b*f-e*d)%parallel !=0) continue;
                 
-                //y가 정수가 아닐 때
-                if((e*c - a*f)%target!=0) continue;
+                if((e*c-a*f)%parallel !=0) continue;
                 
-                long x = (b*f-e*d)/target;
-                long y = (e*c - a*f)/target;
+                long x = (b*f-e*d)/parallel;
+                long y = (e*c-a*f)/parallel;
                 
                 minX = Math.min(minX, x);
-                maxX = Math.max(maxX, x);
                 minY = Math.min(minY, y);
+                maxX = Math.max(maxX, x);
                 maxY = Math.max(maxY, y);
-                
-                Point point = new Point(x, y);
-                set.add(point); //교점 넣기
+            
+                set.add(new Point(x, y));
             }
         }
         
-        String[][] board = new String[(int)(maxY-minY+1)][(int)(maxX-minX+1)];
-        for(int i = 0; i<board.length; i++)
-            Arrays.fill(board[i], ".");
+        long lenY = maxY - minY +1;
+        long lenX = maxX-minX+1;
+        String[][] points = new String[(int)lenY][(int)lenX];
         
-        for(Point p: set){
-            long tempX = p.x-minX;
-            long tempY = maxY -p.y;
-            board[(int)tempY][(int)tempX] = "*";
+        for(int i = 0; i<lenY; i++){
+            Arrays.fill(points[i], ".");
         }
         
-        String[] result = new String[(int)(maxY-minY+1)];
-        
-        for(int i = 0; i<board.length; i++){
-            result[i] = String.join("", board[i]);
+        for(Point p : set){
+            long x = p.x - minX;
+            long y = maxY - p.y;
+            points[(int)y][(int)x] ="*";
         }
         
+        String[] result = new String[(int)lenY];
+        
+        for(int i = 0; i<lenY; i++){
+            result[i] = String.join("", points[i]);
+        }
         return result;
     }
 }
