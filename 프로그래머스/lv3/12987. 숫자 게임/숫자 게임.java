@@ -24,8 +24,6 @@ class Solution {
             if(listA.get(i) < q.peek() ){
                 q.pollFirst();
                 result++;
-            }else {
-                q.pollLast();
             }
         }
         
