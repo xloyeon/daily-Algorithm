@@ -17,8 +17,7 @@ class Solution {
         }
         
         //station의 마지막 전파 범위가 끝이 아니면
-        if(stations[stations.length-1] + w < n){
-            start = stations[stations.length-1] + w + 1;
+        if(start-1 < n){
             int end = n+1;
             
             int temp = (end-start)/(w*2+1);
