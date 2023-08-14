@@ -26,11 +26,6 @@ public class Main {
             
             int diff = Math.abs(start - link);    //두 팀 점수 차
             
-            if(diff == 0){
-                System.out.println(diff);
-                System.exit(0);
-            }
-            
             min = Math.min(diff, min);
             return;
         }
