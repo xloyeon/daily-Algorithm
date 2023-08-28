@@ -5,6 +5,7 @@ class Solution {
     public static int bfs(List<List<Integer>> graph, int n){
         int[] visited = new int[n+1];
         
+        //노드, 거리
         Queue<int[]> q = new LinkedList<>();
         q.add(new int[]{1, 0});
         
