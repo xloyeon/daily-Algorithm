@@ -6,8 +6,8 @@ public class Main{
     public static int[][] map;
     
     public static void dfs(int idx, int depth){
-        if(idx == depth){
-            if(check()){
+        if(idx == depth){    
+            if(check()){    //사다리 완성인지 확인
                 System.out.println(depth);
                 System.exit(0);
             }
@@ -16,6 +16,7 @@ public class Main{
         
         for(int i = 0; i<h; i++){
             for(int j = 1; j<n; j++){
+                //현재위치, 왼쪽, 오른쪽 확인
                 if(map[i+1][j]==1 || map[i+1][j-1] == 1 || map[i+1][j+1] == 1){
                     continue;
                 }
@@ -32,15 +33,16 @@ public class Main{
             int y= i;
             
             while(x<=h){
-                if(map[x][y]==1){
+                if(map[x][y]==1){    //현재 위치가 사다리면 오른쪽
                     y++;
-                }else if(map[x][y-1]==1){
+                }else if(map[x][y-1]==1){    //왼쪽이 사다리면 왼쪽으로
                     y--;
                 }
+                //아래로 하강
                 x++;
             }
             
-            if(y != i){
+            if(y != i){    //하나라도 안 되면 false
                 return false;
             }
         }
@@ -69,6 +71,6 @@ public class Main{
         for(int i = 0; i<4; i++){
             dfs(0, i);
         }
-        System.out.println(-1);    //초과할 경우
+        System.out.println(-1);    //초과할 경우 혹은 불가능한 경우
     }
 }
