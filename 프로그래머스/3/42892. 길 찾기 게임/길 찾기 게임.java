@@ -26,13 +26,13 @@ class Solution {
     public static int idx = 0;
     public static int[][] result;
     
-    public void addNode(Node a, Node b) {
-        if(a.x > b.x) {
-            if(a.left == null) a.left = b;
-            else addNode(a.left, b);
+    public void addNode(Node parent, Node n) {
+        if(parent.x > n.x) {
+            if(parent.left == null) parent.left = n;
+            else addNode(parent.left, n);
         }else {
-            if(a.right == null) a.right = b;
-            else addNode(a.right, b);
+            if(parent.right == null) parent.right = n;
+            else addNode(parent.right, n);
         }
     }
     
