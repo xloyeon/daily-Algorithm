@@ -1,0 +1,14 @@
+-- 코드를 입력하세요
+-- 거래 상태가 완료이고 -> where 조건
+-- 사람별 총 금액이 70만원 이상
+-- 회원 id, 닉네임, 총거래금액을 select
+-- 총 거래 금액 기준 오름차순 정렬
+SELECT B.USER_ID, B.NICKNAME, A.TOTAL AS TOTAL_SALES
+FROM
+(SELECT WRITER_ID, SUM(PRICE) AS TOTAL
+FROM USED_GOODS_BOARD
+WHERE STATUS = 'DONE'
+GROUP BY WRITER_ID) A, USED_GOODS_USER B
+WHERE A.TOTAL >=700000
+AND A.WRITER_ID = B.USER_ID
+ORDER BY TOTAL_SALES;
