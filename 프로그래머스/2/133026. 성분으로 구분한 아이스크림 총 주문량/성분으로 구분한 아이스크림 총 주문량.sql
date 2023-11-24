@@ -1,0 +1,9 @@
+-- 코드를 입력하세요
+-- select : 성분타입, 성분타입별 총 주문량
+-- 정렬 : 총주문량 작은 순
+-- 컬럼명 지정 : 총주문량을 total_order로
+SELECT INGREDIENT_TYPE, SUM(TOTAL_ORDER) AS TOTAL_ORDER
+FROM FIRST_HALF A, ICECREAM_INFO B
+WHERE A.FLAVOR = B.FLAVOR
+GROUP BY B.INGREDIENT_TYPE
+ORDER BY TOTAL_ORDER;
