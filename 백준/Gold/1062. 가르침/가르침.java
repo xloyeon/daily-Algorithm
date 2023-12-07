@@ -25,7 +25,7 @@ public class Main{
             return;
         }
         
-        for(int i = idx; i<27; i++){
+        for(int i = idx; i<26; i++){
             if((bitmask & (1<<i)) == 0)
                 solve(i+1, count+1, bitmask|(1<<i));
         }
