@@ -33,8 +33,10 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         
         while(!left.isEmpty()){
-            right.push(left.pop());
+            sb.append(left.pop());
         }
+        
+        sb = sb.reverse();
         
         while(!right.isEmpty()){
             sb.append(right.pop());
