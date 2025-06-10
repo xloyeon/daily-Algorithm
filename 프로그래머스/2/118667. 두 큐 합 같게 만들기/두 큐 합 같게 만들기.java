@@ -24,7 +24,7 @@ class Solution {
             sum2 += queue2[i];
         }
         
-        int limit = queue1.length* 3 + queue2.length*3;
+        int limit = queue1.length* 2 + queue2.length* 2;
         
         while(count<=limit){
             
