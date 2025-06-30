@@ -1,90 +1,77 @@
 import java.util.*;
 
 class Solution {
-    
-    //2의 제곱인지 확인하고 아니면 차이를 리턴
-    public long powerOfTwo(long num){
-        long powered = 2;
+    public String makePerfectBinaryTree(String num){
+        //2의 제곱인지 확인
+        long len = num.length();
         
-        while(powered-1 <num){
-            powered = powered*2;
+        long tmp = 2;
+        
+        while(tmp -1 < len){    //루트 크기 빼고 생각해 줌
+            tmp *= 2;
         }
-        return powered-1-num;
-    }
-    
-    public String fillBinaryTree(String binaryString) {
-        long power = powerOfTwo(binaryString.length());
-            
-        if(power != 0){   //2의 제곱이 아니면 0을 앞에 차이만큼 붙여줌
-                
-            StringBuffer sb = new StringBuffer();
-                
-            for(int j = 0; j<power; j++){
-                sb.append("0");
-            }
-            binaryString = sb.toString() + binaryString;
+        
+        long filled = tmp - 1 - len;
+        StringBuilder perfectNum = new StringBuilder();
+        //filled 만큼 앞에 더하기
+        for(int i = 0; i<filled; i++){
+            perfectNum.append("0");
         }
-        return binaryString;
+        return perfectNum.toString() + num;
     }
     
-    public boolean checkBinary(String binaryString){
-        if(binaryString.length() == 0) return true;
+    public boolean checkBinaryTree(String num){
+        if(num.length() == 0) return true;
         
-        int mid = binaryString.length()/2;
+        int mid = num.length()/2;
         
-        String left = binaryString.substring(0, mid);
-        String right = binaryString.substring(mid+1);
+        String left = num.substring(0, mid);
+        String right = num.substring(mid+1);
         
-        if(binaryString.charAt(mid) =='0')
-            return isAllZero(right) && isAllZero(left);
-       
-        return checkBinary(left) && checkBinary(right);
+        if(num.charAt(mid) == '0'){
+            //왼쪽, 오른쪽 자식 노드들이 모두 0이어야 함
+            return checkZeroTree(left) && checkZeroTree(right);
+        }
+        
+        return checkBinaryTree(left) && checkBinaryTree(right);
     }
     
-    private boolean isAllZero(String binaryString){
-        if(binaryString.length() == 0) return true;
+    public boolean checkZeroTree(String num){
+        if(num.length() == 0) return true;
         
-        int mid = binaryString.length()/2;
+        int mid = num.length()/2;
         
-        String left = binaryString.substring(0, mid);
-        String right = binaryString.substring(mid+1);
+        String left = num.substring(0, mid);
+        String right = num.substring(mid+1);
         
-        if(binaryString.charAt(mid) =='1')
+        if(num.charAt(mid) == '1')
             return false;
         
-        return isAllZero(left) && isAllZero(right);
+        return checkZeroTree(left) && checkZeroTree(right);
     }
     
     public int[] solution(long[] numbers) {
-        //트리 이진 포화면 -> 1,3,7,15, ..(2의 제곱 -1)
-        //주어진 수를 2진수로 변환 : 7-> 111 -
-        //42-> 101010 -> 앞쪽에 더미노드 하나 더 있는것:0101010 
-        //5 -> 101
-        //63 -> 0111111  
-        //111 -> 0101111
-        //95 -> 1010101
-        //자식이 1이면 그 루트들이 모두 1이어야 함
-        int[] result = new int[numbers.length]; //결과 값 담을 배열
+        int[] answer = new int[numbers.length];
         
-        for(int i = 0; i<numbers.length; i++) {
-            String binaryString = Long.toBinaryString(numbers[i]);
-            String filled = fillBinaryTree(binaryString);
+        for(int i = 0; i<numbers.length; i++){
+            String num = Long.toBinaryString(numbers[i]);
+            String perfectNum = makePerfectBinaryTree(num);
             
-            int mid = filled.length()/2;
+            int root = perfectNum.length()/2;
             
-            if(filled.charAt(mid) == '0') {
-                continue;
-            }
-                
+            if(perfectNum.charAt(root) == '0')
+                continue;   //루트가 0이면 무조건 포화이진트리 불가
             
-            String left = filled.substring(0, mid);
-            String right = filled.substring(mid+1); 
+            String left = perfectNum.substring(0, root);    //왼쪽 자식 트리
+            String right = perfectNum.substring(root+1);    //오른쪽 자식 트리
             
-            if(checkBinary(left) && checkBinary(right))
-                result[i] = 1;
-            
+            if(checkBinaryTree(left) && checkBinaryTree(right))
+                answer[i] = 1;
         }
         
-        return result;
+        //포화 이진트리 -> 0이면 임시노드, 1이면 진짜 노드 
+        //따라서 자식이 1이면 그 부모는 무조건 1이어야만 함
+        
+        return answer;
     }
 }
