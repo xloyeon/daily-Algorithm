@@ -1,78 +1,88 @@
 import java.util.*;
 
-class Node implements Comparable<Node> {
+class Node implements Comparable<Node>{
     int x;
     int y;
-    int v;
+    int val;
     Node left;
     Node right;
     
-    public Node(int x, int y, int v, Node left, Node right) {
+    public Node(int x, int y, int val, Node left, Node right){
         this.x = x;
         this.y = y;
-        this.v = v;
+        this.val = val;
         this.left = left;
         this.right = right;
     }
     
-    public int compareTo(Node n) {
+    public int compareTo(Node n){
         if(this.y == n.y)
             return this.x - n.x;
-        return n.y - this.y;
+        return n.y-this.y;
+            
     }
+    
 }
 
 class Solution {
-    public static int idx = 0;
-    public static int[][] result;
+    int[][] result;
+    int idx = 0;
     
-    public void addNode(Node parent, Node n) {
-        if(parent.x > n.x) {
-            if(parent.left == null) parent.left = n;
-            else addNode(parent.left, n);
-        }else {
-            if(parent.right == null) parent.right = n;
-            else addNode(parent.right, n);
+    public void makeTree(Node parent, Node n){
+        if(parent.x > n.x){
+            if(parent.left == null)
+                parent.left = n;
+            else
+                makeTree(parent.left, n);
+        }else{
+            if(parent.right == null)
+                parent.right = n;
+            else
+                makeTree(parent.right, n);
         }
     }
     
-    public void preorder(Node a) {
-        if(a != null) {
-            result[0][idx++] = a.v;
-            preorder(a.left);
-            preorder(a.right);
+    public void preorder(Node n){
+        if(n!= null){
+            result[0][idx++] = n.val;
+            preorder(n.left);
+            preorder(n.right);
         }
     }
     
-    public void postorder(Node a) {
-        if(a != null) {
-            postorder(a.left);
-            postorder(a.right);
-            result[1][idx++] = a.v;
+    public void postorder(Node n){
+        if(n!= null){
+            postorder(n.left);
+            postorder(n.right);
+            result[1][idx++] = n.val;
         }
     }
     
     public int[][] solution(int[][] nodeinfo) {
-        Node[] nodes = new Node[nodeinfo.length];   //전체 노드
+        //레벨 = y값
+        //Node를 넣고 .. 루트를 찾아 전위 , 후위순회
         
-        for(int i=0; i<nodeinfo.length; i++) {
+        //먼저 노드 만들기
+        Node[] nodes = new Node[nodeinfo.length];
+        
+        for(int i = 0; i<nodeinfo.length; i++){
             nodes[i] = new Node(nodeinfo[i][0], nodeinfo[i][1], i+1, null, null);
         }
         
         Arrays.sort(nodes);
         
-        Node root = nodes[0];   //루트 노드
-        
-        for(int i = 1; i<nodes.length; i++) {
-            addNode(root, nodes[i]);    //하위 노드로 넣기
+        //트리 잇기
+        for(int i = 1; i<nodes.length; i++){
+            makeTree(nodes[0], nodes[i]);
         }
         
+        //결과 넣을 배열(전위순회 결과, 후위순회 결과)
         result = new int[2][nodes.length];
-        
-    
-        preorder(root);
+        preorder(nodes[0]);
         idx = 0;
-        postorder(root);
+        postorder(nodes[0]);
+        
         return result;
+        
     }
 }
