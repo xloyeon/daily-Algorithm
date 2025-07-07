@@ -19,7 +19,9 @@ public class Main {
     }
 
     public static int find(int x){
-        return parent[x] == x? x : find(parent[x]);
+        if(parent[x] == x)
+            return x;
+        return parent[x] = find(parent[x]);
     }
 
     public static void main(String[] args) throws Exception {
@@ -53,12 +55,12 @@ public class Main {
         }
 
         st = new StringTokenizer(br.readLine());
-        int result = find(Integer.parseInt(st.nextToken()));
+        int result = parent[Integer.parseInt(st.nextToken())];
 
         while(st.hasMoreTokens()){
             int tmp = Integer.parseInt(st.nextToken());
 
-            if(find(tmp)!= result){
+            if(parent[tmp]!= result){
                 result = 0;
                 break;
             }
